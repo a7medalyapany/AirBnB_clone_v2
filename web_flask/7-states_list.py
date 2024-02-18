@@ -1,12 +1,22 @@
 #!/usr/bin/python3
 """ Module to start a Flask web application"""
 
-from flask import Flask
-from flask import render_template
-
+from flask import Flask, render_template
+from models import storage
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
+
+
+@app.route('/states_list', strict_slashes=False)
+def states_list():
+    states = storage.all("State").values()
+    states = sorted(states, key=lambda state: state.name)
+    return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    storage.close()
 
 
 if __name__ == '__main__':
