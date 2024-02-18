@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module for creating a MySQL engine"""
+"""Module for managing a MySQL database engine"""
 
 import os
 from models.base_model import BaseModel, Base
@@ -14,7 +14,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 
 class DBStorage:
-    """Create a MySQL database storage system"""
+    """Manages a MySQL database storage system"""
 
     all_classes = {"BaseModel": BaseModel, "User": User, "State": State,
                    "City": City, "Amenity": Amenity, "Place": Place,
@@ -23,7 +23,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """Initialize and set up the database"""
+        """Initialize and configure the database"""
         self.__engine = create_engine(
             f"mysql+mysqldb://{os.environ['HBNB_MYSQL_USER']}:{os.environ['HBNB_MYSQL_PWD']}@{os.environ['HBNB_MYSQL_HOST']}/{os.environ['HBNB_MYSQL_DB']}",
             pool_pre_ping=True)
@@ -31,7 +31,7 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Retrieve all objects from the current database session"""
+        """Retrieve all objects from the database session"""
         obj_dict = {}
         cls = self.all_classes.get(cls)
         if cls:
@@ -45,7 +45,7 @@ class DBStorage:
         return obj_dict
 
     def new(self, obj):
-        """Add an object to the current session"""
+        """Add an object to the session"""
         self.__session.add(obj)
         self.__session.flush()
 
@@ -54,7 +54,7 @@ class DBStorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Delete an object"""
+        """Delete an object from the session"""
         if obj:
             self.__session.delete(obj)
 
