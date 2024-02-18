@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HBNB Filters</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}" type="text/css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}" type="text/css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}" type="text/css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}" type="text/css">
+</head>
+<body>
+  <header class="header" id="header">
+    <h1>HBNB</h1>
+  </header>
+  <div class="filters" id="filters">
+    <h2>Filters</h2>
+    <div class="locations">
+      <h3>States</h3>
+      <div class="popover">
+        {% for state in states %}
+          <div class="filter" name="state" id="{{ state.id }}">
+            <input type="checkbox" class="input_checkbox" name="input_{{ state.id }}">
+            <label for="input_{{ state.id }}">{{ state.name }}</label>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="locations">
+      <h3>Cities</h3>
+      <div class="popover">
+        {% for city in cities %}
+          <div class="filter" name="city" id="{{ city.id }}">
+            <input type="checkbox" class="input_checkbox" name="input_{{ city.id }}">
+            <label for="input_{{ city.id }}">{{ city.name }}</label>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="amenities">
+      <h3>Amenities</h3>
+      <div class="popover">
+        {% for amenity in amenities %}
+          <div class="filter" name="amenity" id="{{ amenity.id }}">
+            <input type="checkbox" class="input_checkbox" name="input_{{ amenity.id }}">
+            <label for="input_{{ amenity.id }}">{{ amenity.name }}</label>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <footer class="footer" id="footer">
+    <p>Footer</p>
+  </footer>
+</body>
+</html>
